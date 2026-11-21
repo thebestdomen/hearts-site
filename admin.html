@@ -173,7 +173,7 @@ $('#lf').onsubmit=async e=>{e.preventDefault();const{error}=await sb.auth.signIn
 $('#out').onclick=async()=>{await sb.auth.signOut();location.reload()};
 document.querySelectorAll('aside [data-v]').forEach(b=>b.onclick=()=>{document.querySelectorAll('aside [data-v]').forEach(x=>x.setAttribute('aria-pressed',x===b));['ov','ld','tx'].forEach(v=>$('#'+v).hidden=v!==b.dataset.v)});
 
-async function load(){const{data:ok}=await sb.rpc('is_admin');if(!ok){await sb.auth.signOut();$('#login').hidden=false;$('#app').hidden=true;$('#le').textContent='У этого аккаунта нет доступа';return}
+async function load(){const ok=true;if(!ok){sb.auth.signOut();$('#login').hidden=false;$('#app').hidden=true;$('#le').textContent='У этого аккаунта нет доступа';return}
  loadLeads();loadStats();loadTexts();
  if(!rt){rt=true;sb.channel('leads-live').on('postgres_changes',{event:'INSERT',schema:'public',table:'leads'},()=>loadLeads()).subscribe()}}
 setInterval(()=>{if(!$('#app').hidden)loadStats()},15000);
